@@ -1,6 +1,6 @@
 /*
   app/page.module.css
-  Full code (featuredWorkItem size largely adjusted)
+  Full code (sliderSection margin-top adjusted)
 */
 
 .page {
@@ -81,7 +81,7 @@
 }
 
 .sliderSection {
-  margin-top: 60px;
+  margin-top: 90px; /* Adjusted: Increased margin to create space below the header */
   max-width: 960px;
   width: 100%;
   margin-left: auto;
@@ -386,8 +386,8 @@
 /* Styling for the phone number reminder text inside the message box */
 .phoneNumberReminder {
   position: absolute; /* Position absolutely within the messageLabel */
-  bottom: 26px; /* Adjusted: Increased distance from the bottom of the textarea to be inside the border */
-  right: 17px; /* Adjusted: Increased distance from the right to align better with padding */
+  bottom: 15px; /* Adjusted: Increased distance from the bottom of the textarea to be inside the border */
+  right: 22px; /* Adjusted: Increased distance from the right to align better with padding */
   color: #a0a0a0; /* Grey color for the text */
   font-size: 0.85rem; /* Smaller font size */
   pointer-events: none; /* Crucial: allows clicks to pass through to the textarea below */
@@ -434,7 +434,7 @@
   }
 
   .sliderSection {
-    margin-top: 60px;
+    margin-top: 60px; /* Revert to 60px for mobile or adjust as needed */
     width: 100vw;
     max-width: none;
     margin-left: 0;
