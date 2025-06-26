@@ -386,7 +386,7 @@
 /* Styling for the phone number reminder text inside the message box */
 .phoneNumberReminder {
   position: absolute; /* Position absolutely within the messageLabel */
-  bottom: 15px; /* Adjusted: Increased distance from the bottom of the textarea to be inside the border */
+  bottom: 25px; /* Adjusted: Increased distance from the bottom of the textarea to be inside the border */
   right: 22px; /* Adjusted: Increased distance from the right to align better with padding */
   color: #a0a0a0; /* Grey color for the text */
   font-size: 0.85rem; /* Smaller font size */
