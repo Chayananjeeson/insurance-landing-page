@@ -22,7 +22,7 @@ export default function Home() {
       id: 1,
       title: "Work 1",
       desc: "This is the description for the first work. This is the description for the first work. This is the description for the first work. This is the description for the first work. This is the description for the first work. This is the description for the first work.",
-      imgSrc: `${BASE_PATH}/owner1.jpg`, // แก้ไขตรงนี้
+      imgSrc: `${BASE_PATH}/gsb.jpg`, // แก้ไขตรงนี้
     },
     {
       id: 2,
