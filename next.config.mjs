@@ -2,32 +2,43 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // เปิดใช้งานการ Export เป็น Static HTML
+  // 1. Enable static HTML export
+  // When 'output' is 'export', Next.js will build your project into static HTML/CSS/JS files
+  // in the 'out' directory, suitable for static hosting like GitHub Pages.
   output: 'export',
 
-  // ***** สำคัญมาก! *****
-  // กำหนด Base Path สำหรับการ Deploy บน GitHub Pages
-  // ต้องเป็นชื่อ Repository ของคุณ EXACTLY (ตรงเป๊ะๆ)
-  // สำหรับ URL ของคุณคือ https://chayananjeeson.github.io/insurance-landing-page/
-  // ดังนั้น basePath ต้องเป็น '/insurance-landing-page'
-  basePath: '/insurance-landing-page', // <-- ตรวจสอบว่าตรงกับชื่อ Repository บน GitHub ของคุณ
+  // 2. IMPORTANT: Define the base path for your GitHub Pages deployment.
+  // This must EXACTLY match your GitHub repository name.
+  // Your URL is https://chayananjeeson.github.io/insurance-landing-page/,
+  // so the basePath is '/insurance-landing-page'.
+  basePath: '/insurance-landing-page', // <-- Ensure this matches your GitHub repo name
 
-  // (ไม่บังคับ) ทำให้ URL มีเครื่องหมาย '/' ปิดท้ายเสมอ
+  // 3. (Optional) Force trailing slashes for cleaner URLs, good for static sites.
   trailingSlash: true,
 
-  // (ไม่บังคับ) ปิดการ Optimize รูปภาพของ Next.js
+  // 4. (Optional) Disable Next.js image optimization for static exports.
+  // GitHub Pages doesn't support server-side image optimization.
   images: {
     unoptimized: true,
   },
 
-  // ***** เพิ่มส่วนนี้เข้ามา *****
-  // กำหนด Environment Variables ที่จะสามารถเข้าถึงได้ในโค้ดฝั่ง Client (browser)
-  // NEXT_PUBLIC_BASE_PATH จะถูกตั้งค่าตาม basePath ที่คุณกำหนดไว้
+  // 5. Define environment variables accessible in client-side code.
+  // NEXT_PUBLIC_BASE_PATH will be set according to the basePath.
+  // This is essential for correct image and asset loading in both development and production builds.
   env: {
-    NEXT_PUBLIC_BASE_PATH: '/insurance-landing-page', // <-- ต้องตรงกับ basePath ด้านบนเป๊ะๆ
+    NEXT_PUBLIC_BASE_PATH: '/insurance-landing-page', // <-- Must exactly match the basePath above
   },
 
-  // หมายเหตุ: ฟีเจอร์ของ Next.js ที่ต้องใช้ Server จะไม่ทำงานเมื่อใช้ 'output: 'export''
+  // 6. ***** CRITICAL FIX: Conditionally apply assetPrefix for Production builds only *****
+  // assetPrefix specifies the prefix for all assets (JS, CSS, images managed by Next.js)
+  // in the Production build (in the 'out' folder).
+  // For GitHub Pages on a subpath, assetPrefix should be the full URL of your site.
+  //
+  // process.env.NODE_ENV === 'production' ensures this is only applied when building for production.
+  // In development, it will be undefined, so assets load correctly from localhost.
+  assetPrefix: process.env.NODE_ENV === 'production'
+    ? 'https://chayananjeeson.github.io/insurance-landing-page/' // Full URL for production
+    : '', // Empty string for local development to load assets from localhost
 };
 
 export default nextConfig;
