@@ -9,6 +9,10 @@ import { FiMessageSquare } from "react-icons/fi";
 import { FaFacebook, FaTiktok, FaLine } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
 
+// กำหนด BASE_PATH จาก environment variable
+// Next.js จะแทนที่ค่านี้ด้วย basePath จาก next.config.mjs ตอน build
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || ''; // เพิ่ม || '' เพื่อป้องกัน undefined ในบางกรณี
+
 
 export default function Home() {
   const [showContact, setShowContact] = useState(false);
@@ -18,19 +22,19 @@ export default function Home() {
       id: 1,
       title: "Work 1",
       desc: "This is the description for the first work. This is the description for the first work. This is the description for the first work. This is the description for the first work. This is the description for the first work. This is the description for the first work.",
-      imgSrc: "/gsb.jpg",
+      imgSrc: `${BASE_PATH}/owner1.jpg`, // แก้ไขตรงนี้
     },
     {
       id: 2,
       title: "Work 2",
       desc: "This is the description for the second work. This is the description for the second work. This is the description for the second work.",
-      imgSrc: "/bk.png",
+      imgSrc: `${BASE_PATH}/owner1.jpg`, // แก้ไขตรงนี้
     },
   ];
 
   const products = [
-    { id: 1, name: "Product 1", href: "https://example1.com", imgSrc: "/owner1.jpg" },
-    { id: 2, name: "Product 2", href: "https://example2.com", imgSrc: "/owner1.jpg" },
+    { id: 1, name: "Product 1", href: "https://example1.com", imgSrc: `${BASE_PATH}/owner1.jpg` }, // แก้ไขตรงนี้
+    { id: 2, name: "Product 2", href: "https://example2.com", imgSrc: `${BASE_PATH}/owner1.jpg` }, // แก้ไขตรงนี้
   ];
 
   // Function to scroll to the top of the page
@@ -42,8 +46,8 @@ export default function Home() {
     <>
       {/* Left side posters (2 vertical) */}
       <div className={styles.leftPosterWrapper}>
-        <img src="/insure2.png" alt="Poster 1" className={styles.leftPosterImage} />
-        <img src="/insure2.png" alt="Poster 2" className={styles.leftPosterImageSecond} />
+        <img src={`${BASE_PATH}/insure2.png`} alt="Poster 1" className={styles.leftPosterImage} /> {/* แก้ไขตรงนี้ */}
+        <img src={`${BASE_PATH}/insure2.png`} alt="Poster 2" className={styles.leftPosterImageSecond} /> {/* แก้ไขตรงนี้ */}
       </div>
 
       {/* Sticky Header */}
@@ -76,6 +80,8 @@ export default function Home() {
       <div className={styles.page}>
         {/* Slider Section */}
         <section className={styles.sliderSection}>
+          {/* ตรวจสอบว่า SliderClient ส่ง Path รูปภาพเข้าไปอย่างถูกต้องด้วย BASE_PATH หรือไม่ */}
+          {/* หาก SliderClient ใช้ src="/slide1.jpg" จะต้องแก้ไขภายใน SliderClient.js ด้วยเช่นกัน */}
           <SliderClient className={styles.sliderWrapper} />
         </section>
 

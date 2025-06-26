@@ -2,31 +2,32 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Enables the static HTML export.
-  // When 'output' is 'export', Next.js will generate a static HTML/CSS/JS site
-  // in the 'out' directory which can be hosted on any static hosting provider,
-  // like GitHub Pages.
+  // เปิดใช้งานการ Export เป็น Static HTML
   output: 'export',
 
-  // IMPORTANT: The basePath is now set to '/insurance-landing-page'
-  // This matches your GitHub repository name.
-  // This tells Next.js that your site will be hosted under a subpath on GitHub Pages.
-  basePath: '/insurance-landing-page', 
+  // ***** สำคัญมาก! *****
+  // กำหนด Base Path สำหรับการ Deploy บน GitHub Pages
+  // ต้องเป็นชื่อ Repository ของคุณ EXACTLY (ตรงเป๊ะๆ)
+  // สำหรับ URL ของคุณคือ https://chayananjeeson.github.io/insurance-landing-page/
+  // ดังนั้น basePath ต้องเป็น '/insurance-landing-page'
+  basePath: '/insurance-landing-page', // <-- ตรวจสอบว่าตรงกับชื่อ Repository บน GitHub ของคุณ
 
-  // Optional: Disables the 'trailing slash' behavior for cleaner URLs.
+  // (ไม่บังคับ) ทำให้ URL มีเครื่องหมาย '/' ปิดท้ายเสมอ
   trailingSlash: true,
 
-  // Optional: Configures image optimization. Since GitHub Pages is static,
-  // Next.js image optimization features that require a server won't work.
-  // Setting 'unoptimized: true' prevents Next.js from trying to optimize
-  // images at runtime, ensuring they are served directly.
+  // (ไม่บังคับ) ปิดการ Optimize รูปภาพของ Next.js
   images: {
     unoptimized: true,
   },
 
-  // Note: If you use any features that require a Next.js server (e.g., API Routes,
-  // server-side rendering with getServerSideProps, server components with 'use server'),
-  // they will not work with 'output: 'export''. GitHub Pages only hosts static files.
+  // ***** เพิ่มส่วนนี้เข้ามา *****
+  // กำหนด Environment Variables ที่จะสามารถเข้าถึงได้ในโค้ดฝั่ง Client (browser)
+  // NEXT_PUBLIC_BASE_PATH จะถูกตั้งค่าตาม basePath ที่คุณกำหนดไว้
+  env: {
+    NEXT_PUBLIC_BASE_PATH: '/insurance-landing-page', // <-- ต้องตรงกับ basePath ด้านบนเป๊ะๆ
+  },
+
+  // หมายเหตุ: ฟีเจอร์ของ Next.js ที่ต้องใช้ Server จะไม่ทำงานเมื่อใช้ 'output: 'export''
 };
 
 export default nextConfig;
