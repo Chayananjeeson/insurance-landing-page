@@ -28,7 +28,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Horizontal offset, Vertical offset, Blur radius, Spread radius, Color */
 }
 
-/* Styling for the new header navigation */
+/* Header Navigation (adjusted to support back button and social icons) */
 .headerNav {
   display: flex;
   align-items: center;
@@ -36,7 +36,7 @@
   width: 100%; /* Ensure navigation takes full width of header */
 }
 
-/* Style for the Home text */
+/* Style for "Home" text */
 .homeText {
   color: #f0f7ff;
   font-weight: 700;
@@ -45,7 +45,7 @@
   padding: 0 20px; /* Add some padding around "Home" to ensure it's not too close to other elements */
 }
 
-/* Wrapper for social icons and phone number to keep them grouped and push to right on desktop */
+/* Wrapper for social media icons and phone number */
 .socialAndPhoneWrapper {
   display: flex;
   align-items: center;
@@ -89,6 +89,7 @@
 .backButton:hover {
   background-color: #003366;
 }
+
 
 /* Main Banner Section (was once slider) */
 .mainBannerSection {
@@ -207,7 +208,7 @@
   text-align: center;
   color: #000000;
   text-decoration: none;
-  padding: 16px;
+  padding: 16px; /* Adjusted padding to match product cards from previous version */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex; /* Use flexbox to stack image and name */
   flex-direction: column;

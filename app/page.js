@@ -3,70 +3,70 @@
 
 import React, { useState } from "react";
 import styles from "./page.module.css";
-// ไม่ใช้ SliderClient แล้ว
+// SliderClient is no longer used
 import { FiMessageSquare } from "react-icons/fi";
-// นำเข้าไอคอนสำหรับโซเชียลมีเดียและโทรศัพท์
+// Import icons for social media and phone
 import { FaFacebook, FaTiktok, FaLine } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
 
 export default function Home() {
   const [showContact, setShowContact] = useState(false);
-  // สถานะสำหรับช่องข้อความและการตรวจสอบ
+  // State for message input and validation
   const [message, setMessage] = useState('');
   const [messageError, setMessageError] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false); // สถานะเพื่อป้องกันการส่งข้อมูลซ้ำ
+  const [isSubmitting, setIsSubmitting] = useState(false); // State to prevent multiple submissions
 
-  // กำหนดข้อมูลใหม่สำหรับการ์ดโปสเตอร์ทั้งสี่ พร้อมลิงก์ไปยังหน้าสินค้าแต่ละประเภท
+  // Define data for the four poster cards, with links to new product pages
   const posterCards = [
-    { id: 1, name: "ตลอดชีพ", href: "/wholelife-products", imgSrc: "/insure2.png" }, // ลิงก์ไปที่ /wholelife-products
-    { id: 2, name: "ออมทรัพย์", href: "/savings-products", imgSrc: "/insure2.png" }, // ลิงก์ไปที่ /savings-products
-    { id: 3, name: "ชั่วระยะ", href: "/term-products", imgSrc: "/insure2.png" },     // ลิงก์ไปที่ /term-products
-    { id: 4, name: "บำนาญ", href: "/pension-products", imgSrc: "/insure2.png" },     // ลิงก์ไปที่ /pension-products
+    { id: 1, name: "ตลอดชีพ", href: "/wholelife-products", imgSrc: "/insure2.png" }, // Link to /wholelife-products
+    { id: 2, name: "ออมทรัพย์", href: "/savings-products", imgSrc: "/insure2.png" }, // Link to /savings-products
+    { id: 3, name: "ชั่วระยะ", href: "/term-products", imgSrc: "/insure2.png" },     // Link to /term-products
+    { id: 4, name: "บำนาญ", href: "/pension-products", imgSrc: "/insure2.png" },     // Link to /pension-products
   ];
 
-  // ฟังก์ชันเลื่อนไปยังด้านบนสุดของหน้า
+  // Function to scroll to the top of the page
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // ฟังก์ชันตรวจสอบเบอร์โทรศัพท์ในข้อความ
+  // Function to validate phone number in the message
   const validateMessage = (text) => {
-    const numbers = text.match(/\d/g); // ดึงเฉพาะตัวเลข
+    const numbers = text.match(/\d/g); // Extract only digits
     if (!numbers || numbers.length < 10) {
       setMessageError('กรุณาระบุเบอร์โทรศัพท์อย่างน้อย 10 หลักในข้อความของคุณ');
       return false;
     }
-    setMessageError(''); // ล้างข้อผิดพลาดถ้าถูกต้อง
+    setMessageError(''); // Clear error if valid
     return true;
   };
 
-  // ตัวจัดการสำหรับการเปลี่ยนแปลงข้อความ
+  // Handler for message input changes
   const handleMessageChange = (e) => {
     const text = e.target.value;
     setMessage(text);
     if (text.length > 0) {
       validateMessage(text);
     } else {
-      setMessageError(''); // ล้างข้อผิดพลาดถ้าช่องว่างเปล่า
+      setMessageError(''); // Clear error if input is empty
     }
   };
 
-  // ตัวจัดการสำหรับการส่งฟอร์ม
+  // Handler for form submission
   const handleSubmit = (e) => {
-    e.preventDefault(); // ป้องกันการทำงานเริ่มต้นของการส่งฟอร์ม
+    e.preventDefault(); // Prevent default form submission behavior
 
     const isValid = validateMessage(message);
 
     if (!isValid) {
-      return; // หยุดการส่งข้อมูลถ้าการตรวจสอบล้มเหลว
+      return; // Stop submission if validation fails
     }
 
     if (isSubmitting) {
-        return; // ป้องกันการส่งข้อมูลซ้ำ
+        return; // Prevent duplicate submissions
     }
     setIsSubmitting(true);
 
-    // ส่งฟอร์มโดยใช้ Fetch API เพื่อการควบคุมที่ดีขึ้น
+    // Submit form using Fetch API for better control
     const form = e.target;
     fetch(form.action, {
       method: form.method,
@@ -78,33 +78,33 @@ export default function Home() {
     .then(response => {
         if (response.ok) {
             alert('ข้อความของคุณถูกส่งเรียบร้อยแล้ว!');
-            setMessage(''); // ล้างช่องข้อความ
-            setMessageError(''); // ล้างข้อผิดพลาด
-            setShowContact(false); // ปิดแผงติดต่อ
+            setMessage(''); // Clear message input
+            setMessageError(''); // Clear any message errors
+            setShowContact(false); // Close contact panel
         } else {
             alert('ไม่สามารถส่งข้อความได้ โปรดลองอีกครั้ง');
         }
     })
     .catch(error => {
-        console.error('เกิดข้อผิดพลาดในการส่งฟอร์ม:', error);
+        console.error('Form submission error:', error);
         alert('ไม่สามารถส่งข้อความได้ โปรดลองอีกครั้ง');
     })
     .finally(() => {
-        setIsSubmitting(false); // รีเซ็ตสถานะการส่ง
+        setIsSubmitting(false); // Reset submission status
     });
   };
 
   return (
     <>
-      {/* แถบหัวเรื่องแบบติดหนึบ (Sticky Header) */}
+      {/* Sticky Header Bar */}
       <header className={styles.stickyHeader}>
         <nav className={styles.headerNav}>
-          {/* ข้อความ Home */}
+          {/* Home Text */}
           <div className={styles.homeText} onClick={scrollToTop} style={{ cursor: 'pointer' }}>
             หน้าหลัก
           </div>
 
-          {/* Wrapper สำหรับไอคอนโซเชียลมีเดียและเบอร์โทรศัพท์ */}
+          {/* Wrapper for Social Media Icons and Phone Number */}
           <div className={styles.socialAndPhoneWrapper}>
             <a href="https://www.facebook.com/yourpage" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
               <FaFacebook size={24} />
@@ -122,30 +122,30 @@ export default function Home() {
         </nav>
       </header>
 
-      {/* ส่วนเนื้อหาหลักของหน้า */}
+      {/* Main Page Content Area */}
       <div className={styles.page}>
-        {/* ส่วนแบนเนอร์หลัก (เคยเป็นส่วนสไลเดอร์) */}
+        {/* Main Banner Section (previously slider section) */}
         <section className={styles.mainBannerSection}>
           <img
-            src="/owner2.jpg" // รูปภาพแบนเนอร์หลัก
+            src="/owner2.jpg" // The main banner image
             alt="แบนเนอร์หลัก"
-            className={styles.mainBannerImage} // ใช้สไตล์สำหรับแบนเนอร์
+            className={styles.mainBannerImage} // Apply styling for the banner
           />
         </section>
 
-        {/* ส่วนเนื้อหาหลัก - ตอนนี้มีเพียงส่วนกริดโปสเตอร์ใหม่ */}
+        {/* Main content area - now contains only the new poster grid */}
         <main className={styles.mainContentArea}>
-          {/* ส่วนกริดโปสเตอร์ใหม่ */}
+          {/* New Poster Grid Section */}
           <section className={styles.posterSection}>
             <div className={styles.posterGrid}>
               {posterCards.map((poster) => (
                 <a
                   key={poster.id}
-                  href={poster.href} // ลิงก์ที่ถูกอัปเดต
+                  href={poster.href} // Updated link
                   rel="noopener noreferrer"
                   className={styles.posterCard}
                 >
-                  {/* ย้าย posterName มาอยู่เหนือ posterImage */}
+                  {/* Moved posterName above posterImage */}
                   <p className={styles.posterName}>{poster.name}</p>
                   <img src={poster.imgSrc} alt={poster.name} className={styles.posterImage} />
                 </a>
@@ -155,7 +155,7 @@ export default function Home() {
         </main>
       </div>
 
-      {/* ปุ่มติดต่อลอยน้ำ */}
+      {/* Floating Contact Button */}
       <div className={styles.contactWrapper}>
         <button
           className={`${styles.contactToggleButton} ${showContact ? styles.minimized : ""}`}
@@ -167,7 +167,7 @@ export default function Home() {
           {!showContact && "ติดต่อเรา"}
         </button>
 
-        {/* แผงติดต่อลอยน้ำ */}
+        {/* Floating Contact Panel */}
         <div className={`${styles.floatingContactPanel} ${showContact ? styles.show : ""}`}>
           <h2>ติดต่อเรา</h2>
           <form onSubmit={handleSubmit} action="https://formspree.io/f/mjkrazly" method="POST" className={styles.contactForm}>
