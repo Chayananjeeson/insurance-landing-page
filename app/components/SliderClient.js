@@ -6,15 +6,14 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-// กำหนด BASE_PATH จาก environment variable
-// Next.js จะแทนที่ค่านี้ด้วย basePath จาก next.config.mjs ตอน build
-const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || ''; // เพิ่ม || '' เพื่อป้องกัน undefined ในบางกรณี
+// ไม่ต้องใช้ BASE_PATH อีกต่อไปเมื่อ Deploy ไป Vercel
+// const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 const images = [
-  // แก้ไข src ของรูปภาพแต่ละรูปให้มี BASE_PATH นำหน้า
-  { id: 1, src: `${BASE_PATH}/owner1.jpg`, alt: "Slide 1" },
-  { id: 2, src: `${BASE_PATH}/owner2.jpg`, alt: "Slide 2" },
-  { id: 3, src: `${BASE_PATH}/owner3.jpg`, alt: "Slide 3" },
+  // แก้ไข src ของรูปภาพแต่ละรูปให้ใช้ Path ตรงๆ
+  { id: 1, src: "/owner1.jpg", alt: "Slide 1" }, // แก้ไข: ลบ `${BASE_PATH}` ออก
+  { id: 2, src: "/owner2.jpg", alt: "Slide 2" }, // แก้ไข: ลบ `${BASE_PATH}` ออก
+  { id: 3, src: "/owner3.jpg", alt: "Slide 3" }, // แก้ไข: ลบ `${BASE_PATH}` ออก
 ];
 
 export default function SliderClient({ className }) {

@@ -9,9 +9,8 @@ import { FiMessageSquare } from "react-icons/fi";
 import { FaFacebook, FaTiktok, FaLine } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
 
-// กำหนด BASE_PATH จาก environment variable
-// Next.js จะแทนที่ค่านี้ด้วย basePath จาก next.config.mjs ตอน build
-const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || ''; // เพิ่ม || '' เพื่อป้องกัน undefined ในบางกรณี
+// ไม่ต้องใช้ BASE_PATH อีกต่อไปเมื่อ Deploy ไป Vercel
+// const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 
 export default function Home() {
@@ -22,19 +21,19 @@ export default function Home() {
       id: 1,
       title: "Work 1",
       desc: "This is the description for the first work. This is the description for the first work. This is the description for the first work. This is the description for the first work. This is the description for the first work. This is the description for the first work.",
-      imgSrc: `${BASE_PATH}/gsb.jpg`, // แก้ไขตรงนี้
+      imgSrc: "/gsb.jpg", // แก้ไข: ลบ `${BASE_PATH}` ออก
     },
     {
       id: 2,
       title: "Work 2",
       desc: "This is the description for the second work. This is the description for the second work. This is the description for the second work.",
-      imgSrc: `${BASE_PATH}/owner1.jpg`, // แก้ไขตรงนี้
+      imgSrc: "/owner1.jpg", // แก้ไข: ลบ `${BASE_PATH}` ออก
     },
   ];
 
   const products = [
-    { id: 1, name: "Product 1", href: "https://example1.com", imgSrc: `${BASE_PATH}/owner1.jpg` }, // แก้ไขตรงนี้
-    { id: 2, name: "Product 2", href: "https://example2.com", imgSrc: `${BASE_PATH}/owner1.jpg` }, // แก้ไขตรงนี้
+    { id: 1, name: "Product 1", href: "https://example1.com", imgSrc: "/owner1.jpg" }, // แก้ไข: ลบ `${BASE_PATH}` ออก
+    { id: 2, name: "Product 2", href: "https://example2.com", imgSrc: "/owner1.jpg" }, // แก้ไข: ลบ `${BASE_PATH}` ออก
   ];
 
   // Function to scroll to the top of the page
@@ -46,8 +45,8 @@ export default function Home() {
     <>
       {/* Left side posters (2 vertical) */}
       <div className={styles.leftPosterWrapper}>
-        <img src={`${BASE_PATH}/insure2.png`} alt="Poster 1" className={styles.leftPosterImage} /> {/* แก้ไขตรงนี้ */}
-        <img src={`${BASE_PATH}/insure2.png`} alt="Poster 2" className={styles.leftPosterImageSecond} /> {/* แก้ไขตรงนี้ */}
+        <img src="/insure2.png" alt="Poster 1" className={styles.leftPosterImage} /> {/* แก้ไข: ลบ `${BASE_PATH}` ออก */}
+        <img src="/insure2.png" alt="Poster 2" className={styles.leftPosterImageSecond} /> {/* แก้ไข: ลบ `${BASE_PATH}` ออก */}
       </div>
 
       {/* Sticky Header */}
@@ -80,8 +79,7 @@ export default function Home() {
       <div className={styles.page}>
         {/* Slider Section */}
         <section className={styles.sliderSection}>
-          {/* ตรวจสอบว่า SliderClient ส่ง Path รูปภาพเข้าไปอย่างถูกต้องด้วย BASE_PATH หรือไม่ */}
-          {/* หาก SliderClient ใช้ src="/slide1.jpg" จะต้องแก้ไขภายใน SliderClient.js ด้วยเช่นกัน */}
+          {/* SliderClient จะถูกแก้ไขให้ใช้ Path แบบตรงๆ ในไฟล์เองแล้ว */}
           <SliderClient className={styles.sliderWrapper} />
         </section>
 
@@ -94,6 +92,7 @@ export default function Home() {
             {works[0] && (
               <div key={works[0].id} className={styles.featuredWorkItem}>
                 <div className={styles.workImageWrapper}>
+                  {/* imgSrc ของ works[0] จะใช้ Path แบบตรงๆ */}
                   <img src={works[0].imgSrc} alt={works[0].title} className={styles.workImage} />
                 </div>
                 <div className={styles.workText}>
@@ -110,6 +109,7 @@ export default function Home() {
                 className={`${styles.workItem} ${index % 2 === 0 ? styles.reverse : ""}`}
               >
                 <div className={styles.workImageWrapper}>
+                  {/* imgSrc ของ work จะใช้ Path แบบตรงๆ */}
                   <img src={work.imgSrc} alt={work.title} className={styles.workImage} />
                 </div>
                 <div className={styles.workText}>
@@ -132,6 +132,7 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className={styles.productCard}
                 >
+                  {/* imgSrc ของ product จะใช้ Path แบบตรงๆ */}
                   <img src={product.imgSrc} alt={product.name} className={styles.productImage} />
                   <p>{product.name}</p>
                 </a>
