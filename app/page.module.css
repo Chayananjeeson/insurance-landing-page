@@ -1,0 +1,545 @@
+/*
+  app/page.module.css
+  Full code (featuredWorkItem size largely adjusted)
+*/
+
+.page {
+  color: #000000;
+  font-family: 'Montserrat', sans-serif;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+.stickyHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px; /* Increased height to accommodate icons and text better */
+  background-color: #1231b2; /* Darker blue as per the provided image */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the headerNav itself */
+  padding: 0 24px;
+  z-index: 9999;
+  /* Add a subtle shadow at the bottom of the header */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Horizontal offset, Vertical offset, Blur radius, Spread radius, Color */
+}
+
+/* Styling for the new header navigation */
+.headerNav {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* This centers 'Home' on desktop */
+  width: 100%; /* Ensure navigation takes full width of header */
+}
+
+/* Style for the Home text */
+.homeText {
+  color: #f0f7ff;
+  font-weight: 700;
+  font-size: 1.4rem;
+  flex-shrink: 0; /* Prevent it from shrinking */
+  padding: 0 20px; /* Add some padding around "Home" to ensure it's not too close to other elements */
+}
+
+/* Wrapper for social icons and phone number to keep them grouped and push to right on desktop */
+.socialAndPhoneWrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Spacing between icons/phone number */
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+  margin-left: auto; /* This crucial line pushes this entire group to the right on desktop */
+}
+
+.socialIcon {
+  color: #f0f7ff; /* Icon color */
+  font-size: 1.6rem; /* Icon size */
+  text-decoration: none; /* Remove underline from links */
+  transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.socialIcon:hover {
+  color: #a0c4ff; /* Lighter blue on hover */
+}
+
+.phoneNumber {
+  color: #f0f7ff; /* Text color for phone number */
+  font-size: 1.1rem; /* Font size for phone number */
+  font-weight: 600; /* Font weight for phone number */
+  display: flex; /* Use flex to align icon and text */
+  align-items: center; /* Vertically center icon and text */
+}
+
+
+.main {
+  max-width: 960px;
+  margin: 100px auto 0;
+  padding-left: 20px;
+  padding-right: 20px;
+  box-sizing: border-box;
+}
+
+.sliderSection {
+  margin-top: 60px;
+  max-width: 960px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  background: linear-gradient(to bottom right, #ffffff, #e0f4ff);
+}
+
+.sliderWrapper {
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  background: linear-gradient(to bottom right, #ffffff, #e0f4ff);
+}
+
+.slick-slider,
+.slick-list,
+.slick-track,
+.slick-slide,
+.slick-slide > div,
+.slick-slide > div > div {
+  background: linear-gradient(to bottom right, #ffffff, #e0f4ff) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box;
+}
+
+.slick-slider {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.slick-list {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.slick-slide > div {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.slick-slide img {
+  width: 100%;
+  height: 400px; /* Fixed height for slide images */
+  object-fit: cover; /* Crop image to cover the area */
+  background-color: #e0f4ff;
+  display: block;
+  margin: 0 auto;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* --- Section Headings --- */
+.workSection h2,
+.productsSection h2,
+.contactSection h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #004080;
+  border-bottom: 3px solid #65a9ff;
+  display: inline-block;
+  padding-bottom: 6px;
+}
+
+/* --- Work Section --- */
+.workItem {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 48px;
+  max-width: 800px; /* Retain this value for regular items */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.reverse {
+  flex-direction: row-reverse;
+}
+
+.workImageWrapper {
+  flex: 1 1 40%;
+  min-width: 240px;
+}
+
+.workImage {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 44, 84, 0.15);
+  user-select: none;
+  pointer-events: none;
+}
+
+.workText {
+  flex: 1 1 60%;
+  color: #000000;
+}
+
+.workText h3 {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+  font-weight: 700;
+  color: #003366;
+}
+
+/* --- UPDATED: Featured Work Item --- */
+.featuredWorkItem {
+  display: flex;
+  align-items: center;
+  gap: 40px; /* Increased gap */
+  margin-bottom: 80px; /* Increased bottom margin for more breathing room */
+  max-width: 960px; /* Utilize full max-width of main */
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30px; /* Added padding around for more breathing room */
+  background: #f0f7ff; /* Retained light background for prominence */
+  border-radius: 20px; /* Slightly adjusted border-radius */
+  box-shadow: 0 10px 25px rgba(0, 44, 84, 0.15); /* Added shadow for prominence */
+}
+
+.featuredWorkItem .workImageWrapper {
+  flex: 1 1 60%; /* Significantly more space for the image */
+  min-width: 400px; /* Larger minimum width */
+}
+
+.featuredWorkItem .workImage {
+  height: 450px; /* Significantly increased image height */
+  object-fit: cover; /* Image fills space and may be cropped */
+  border-radius: 18px; /* Adjusted border-radius */
+  box-shadow: 0 8px 20px rgba(0, 44, 84, 0.25); /* Increased shadow for prominence */
+}
+
+.featuredWorkItem .workText {
+  flex: 1 1 40%; /* Reduced text area as image size increases */
+}
+
+.featuredWorkItem .workText h3 {
+  font-size: 2.8rem; /* Significantly increased heading size */
+  margin-bottom: 20px;
+  color: #002c54;
+}
+
+.featuredWorkItem .workText p {
+  font-size: 1.2rem; /* Increased regular text size */
+  line-height: 1.7;
+}
+
+/* --- Products Section --- */
+.productsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 28px;
+}
+
+.productCard {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 44, 84, 0.12);
+  text-align: center;
+  color: #000000;
+  text-decoration: none;
+  padding: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.productCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 26px rgba(0, 44, 84, 0.25);
+}
+
+.productImage {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* --- Contact Button + Panel --- */
+.contactWrapper {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 10000;
+  text-align: right;
+  padding: 0;
+  margin: 0;
+}
+
+.contactToggleButton {
+  background-color: #004080;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 12px 0 0 0;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.3s ease, width 0.3s ease, padding 0.3s ease;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contactToggleButton.minimized {
+  width: 48px;
+  padding: 14px 0;
+  font-size: 1.6rem;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.contactToggleButton:hover {
+  background-color: #003366;
+}
+
+.floatingContactPanel {
+  margin-top: 12px;
+  background: linear-gradient(to bottom right, #ffffff, #e0f4ff);
+  color: #000000;
+  padding: 24px;
+  border-radius: 16px;
+  width: 320px;
+  max-width: 90vw;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transform: translateY(20px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  text-align: left;
+  z-index: 10001;
+}
+
+.floatingContactPanel.show {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Form in the panel */
+.contactForm label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.contactForm input,
+.contactForm textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 2px solid #65a9ff;
+  font-size: 1rem;
+  background: #ffffff;
+  resize: vertical;
+  color: #000000;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+
+.contactForm input:focus,
+.contactForm textarea:focus {
+  border-color: #004080;
+  outline: none;
+}
+
+.contactForm button {
+  background-color: #004080;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.contactForm button:hover {
+  background-color: #002c54;
+}
+
+/* Added styling for the message label container to make it a positioning context */
+.messageLabel {
+  position: relative; /* Establish positioning context for absolute child */
+  display: block; /* Ensure it takes full width */
+  margin-bottom: 16px; /* Maintain existing margin-bottom */
+}
+
+/* Styling for the phone number reminder text inside the message box */
+.phoneNumberReminder {
+  position: absolute; /* Position absolutely within the messageLabel */
+  bottom: 26px; /* Adjusted: Increased distance from the bottom of the textarea to be inside the border */
+  right: 17px; /* Adjusted: Increased distance from the right to align better with padding */
+  color: #a0a0a0; /* Grey color for the text */
+  font-size: 0.85rem; /* Smaller font size */
+  pointer-events: none; /* Crucial: allows clicks to pass through to the textarea below */
+  z-index: 1; /* Ensure it's above the textarea but still lets clicks pass */
+  text-align: right; /* Align text to the right within its own box */
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  /* Adjust featuredWorkItem for mobile */
+  .featuredWorkItem,
+  .workItem,
+  .reverse {
+    flex-direction: column !important; /* Stack items vertically */
+    padding: 15px; /* Reduced padding */
+    gap: 15px; /* Reduced gap */
+  }
+
+  .featuredWorkItem .workImageWrapper,
+  .featuredWorkItem .workText,
+  .workImageWrapper,
+  .workText {
+    flex: none;
+    width: 100%;
+  }
+
+  .featuredWorkItem .workImage {
+    height: 250px; /* Adjusted image size in featured item */
+    margin-bottom: 10px;
+  }
+
+  .workImage {
+    height: 180px; /* Adjusted image size in regular items */
+    margin-bottom: 16px;
+  }
+
+  .featuredWorkItem .workText h3 {
+    font-size: 1.8rem; /* Reduced heading size */
+  }
+
+  .featuredWorkItem .workText p {
+    font-size: 1rem; /* Reduced regular text size */
+  }
+
+  .sliderSection {
+    margin-top: 60px;
+    width: 100vw;
+    max-width: none;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .sliderWrapper {
+    width: 100%;
+  }
+
+  .main {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 40px;
+  }
+
+  .contactWrapper {
+    bottom: 0;
+    right: 0;
+    padding: 0;
+  }
+
+  .contactToggleButton {
+    padding: 14px 20px;
+    border-radius: 12px 0 0 0;
+  }
+
+  .contactToggleButton.minimized {
+    width: 48px;
+    padding: 14px 0;
+    font-size: 1.6rem;
+    border-radius: 12px;
+  }
+
+  .floatingContactPanel {
+    width: calc(100vw - 32px);
+    bottom: 60px;
+    right: 16px;
+    padding: 16px;
+  }
+
+  /* Mobile adjustments for header navigation */
+  .stickyHeader {
+    height: auto; /* Allow height to adjust based on content */
+    padding: 10px 15px; /* Adjust padding for mobile */
+    flex-direction: column; /* Stack items vertically */
+  }
+
+  .headerNav {
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items horizontally in the column */
+    gap: 10px; /* Reduced gap between elements */
+    padding: 0; /* Remove horizontal padding, stickyHeader handles it */
+  }
+
+  .homeText {
+    order: 1; /* Place Home text first in the stack */
+    margin: 0; /* Remove auto margins to allow proper centering in column */
+  }
+
+  .socialAndPhoneWrapper {
+    order: 2; /* Place social icons and phone number second */
+    margin-left: 0; /* Remove auto margin for mobile */
+    width: 100%; /* Take full width */
+    justify-content: center; /* Center icons horizontally */
+    gap: 15px; /* Adjust gap for icons on mobile */
+  }
+
+  .socialIcon {
+    font-size: 1.4rem; /* Smaller icons on mobile */
+  }
+
+  .phoneNumber {
+    font-size: 1rem; /* Smaller font for phone number on mobile */
+  }
+}
+/* --- Left Poster --- */
+.leftPosterWrapper {
+  position: fixed;
+  top: 80px;
+  left: 20px; /* Adjusted value to shift right */
+  width: 260px; /* Reduced width to prevent image overflow and allow space */
+  z-index: 500;
+  /* padding-left: 10px; */ /* No longer needed if 'left' is adjusted directly */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.leftPosterImage,
+.leftPosterImageSecond {
+  width: 100%; /* Changed from 130% to 100% to fit wrapper width */
+  height: 400px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.leftPosterImageSecond {
+  margin-top: 16px; /* Spacing between top and bottom images */
+}
+
+/* Responsive: Hide posters on smaller screens */
+@media (max-width: 1024px) {
+  .leftPosterWrapper {
+    display: none;
+  }
+}
