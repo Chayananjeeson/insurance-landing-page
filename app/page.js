@@ -9,55 +9,126 @@ import { FiMessageSquare } from "react-icons/fi";
 import { FaFacebook, FaTiktok, FaLine } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
 
-// ไม่ต้องใช้ BASE_PATH อีกต่อไปเมื่อ Deploy ไป Vercel
-// const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '';
-
-
 export default function Home() {
   const [showContact, setShowContact] = useState(false);
+  // เพิ่ม state สำหรับข้อความในช่อง Message และสถานะ error
+  const [message, setMessage] = useState('');
+  const [messageError, setMessageError] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false); // เพิ่ม state สำหรับการป้องกันการกดซ้ำ
+
 
   const works = [
     {
       id: 1,
       title: "Work 1",
       desc: "This is the description for the first work. This is the description for the first work. This is the description for the first work. This is the description for the first work. This is the description for the first work. This is the description for the first work.",
-      imgSrc: "/gsb.jpg", // แก้ไข: ลบ `${BASE_PATH}` ออก
+      imgSrc: "/gsb.jpg",
     },
     {
       id: 2,
       title: "Work 2",
       desc: "This is the description for the second work. This is the description for the second work. This is the description for the second work.",
-      imgSrc: "/owner1.jpg", // แก้ไข: ลบ `${BASE_PATH}` ออก
+      imgSrc: "/owner1.jpg",
     },
   ];
 
   const products = [
-    { id: 1, name: "Product 1", href: "https://example1.com", imgSrc: "/owner1.jpg" }, // แก้ไข: ลบ `${BASE_PATH}` ออก
-    { id: 2, name: "Product 2", href: "https://example2.com", imgSrc: "/owner1.jpg" }, // แก้ไข: ลบ `${BASE_PATH}` ออก
+    { id: 1, name: "Product 1", href: "https://example1.com", imgSrc: "/owner1.jpg" },
+    { id: 2, name: "Product 2", href: "https://example2.com", imgSrc: "/owner1.jpg" },
   ];
 
-  // Function to scroll to the top of the page
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // ฟังก์ชันสำหรับตรวจสอบเบอร์โทรศัพท์ในข้อความ
+  const validateMessage = (text) => {
+    // ใช้ Regular Expression เพื่อหาตัวเลขในข้อความ
+    const numbers = text.match(/\d/g); // ดึงเฉพาะตัวเลข
+    if (!numbers || numbers.length < 10) {
+      setMessageError('โปรดระบุเบอร์โทรศัพท์อย่างน้อย 10 หลักในข้อความ');
+      return false;
+    }
+    setMessageError(''); // เคลียร์ error ถ้าถูกต้อง
+    return true;
+  };
+
+  // Handler เมื่อผู้ใช้พิมพ์ในช่อง Message
+  const handleMessageChange = (e) => {
+    const text = e.target.value;
+    setMessage(text);
+    // ตรวจสอบทันทีที่พิมพ์ (Optional: สามารถเลือกตรวจสอบแค่ตอน Submit ก็ได้)
+    if (text.length > 0) { // ตรวจสอบเมื่อเริ่มพิมพ์เท่านั้น ไม่ใช่ตอนช่องว่าง
+      validateMessage(text);
+    } else {
+      setMessageError(''); // ล้าง error เมื่อช่องว่าง
+    }
+  };
+
+  // Handler เมื่อฟอร์มถูก Submit
+  const handleSubmit = (e) => {
+    e.preventDefault(); // ป้องกันการ Submit แบบปกติของเบราว์เซอร์
+
+    // ตรวจสอบความถูกต้องอีกครั้งก่อนส่ง
+    const isValid = validateMessage(message);
+
+    if (!isValid) {
+      // ถ้าไม่ถูกต้อง ไม่ต้องทำอะไร ปล่อยให้ข้อความ error แสดง
+      return;
+    }
+
+    // ป้องกันการกดซ้ำ
+    if (isSubmitting) {
+        return;
+    }
+    setIsSubmitting(true);
+
+    // ถ้าทุกอย่างถูกต้อง ให้ Submit ฟอร์มผ่าน Formspree
+    // เราจะใช้ fetch API แทนการส่งฟอร์มแบบปกติ เพื่อควบคุมสถานะได้ดีกว่า
+    const form = e.target;
+    fetch(form.action, {
+      method: form.method,
+      body: new FormData(form),
+      headers: {
+          'Accept': 'application/json'
+      }
+    })
+    .then(response => {
+        if (response.ok) {
+            // แสดงข้อความสำเร็จ
+            alert('ข้อความของคุณถูกส่งเรียบร้อยแล้ว!');
+            setMessage(''); // ล้างช่องข้อความ
+            setMessageError(''); // ล้าง error
+            setShowContact(false); // ปิด panel
+        } else {
+            // แสดงข้อความผิดพลาด
+            alert('เกิดข้อผิดพลาดในการส่งข้อความ โปรดลองอีกครั้ง');
+        }
+    })
+    .catch(error => {
+        console.error('Error submitting form:', error);
+        alert('เกิดข้อผิดพลาดในการส่งข้อความ โปรดลองอีกครั้ง');
+    })
+    .finally(() => {
+        setIsSubmitting(false); // รีเซ็ตสถานะการส่ง
+    });
   };
 
   return (
     <>
       {/* Left side posters (2 vertical) */}
       <div className={styles.leftPosterWrapper}>
-        <img src="/insure2.png" alt="Poster 1" className={styles.leftPosterImage} /> {/* แก้ไข: ลบ `${BASE_PATH}` ออก */}
-        <img src="/insure2.png" alt="Poster 2" className={styles.leftPosterImageSecond} /> {/* แก้ไข: ลบ `${BASE_PATH}` ออก */}
+        <img src="/insure2.png" alt="Poster 1" className={styles.leftPosterImage} />
+        <img src="/insure2.png" alt="Poster 2" className={styles.leftPosterImageSecond} />
       </div>
 
       {/* Sticky Header */}
       <header className={styles.stickyHeader}>
         <nav className={styles.headerNav}>
-          {/* Home Text - changed from button to div for text */}
           <div className={styles.homeText} onClick={scrollToTop} style={{ cursor: 'pointer' }}>
             Home
           </div>
 
-          {/* Social Media Icons and Phone Number Wrapper */}
           <div className={styles.socialAndPhoneWrapper}>
             <a href="https://www.facebook.com/yourpage" target="_blank" rel="noopener noreferrer" className={styles.socialIcon}>
               <FaFacebook size={24} />
@@ -77,22 +148,16 @@ export default function Home() {
 
       {/* Main page content container */}
       <div className={styles.page}>
-        {/* Slider Section */}
         <section className={styles.sliderSection}>
-          {/* SliderClient จะถูกแก้ไขให้ใช้ Path แบบตรงๆ ในไฟล์เองแล้ว */}
           <SliderClient className={styles.sliderWrapper} />
         </section>
 
-        {/* Main content area */}
         <main className={styles.main}>
-          {/* Work Section */}
           <section className={styles.workSection}>
             <h2>Our Works</h2>
-            {/* Featured Work Item */}
             {works[0] && (
               <div key={works[0].id} className={styles.featuredWorkItem}>
                 <div className={styles.workImageWrapper}>
-                  {/* imgSrc ของ works[0] จะใช้ Path แบบตรงๆ */}
                   <img src={works[0].imgSrc} alt={works[0].title} className={styles.workImage} />
                 </div>
                 <div className={styles.workText}>
@@ -102,14 +167,12 @@ export default function Home() {
               </div>
             )}
 
-            {/* Other Work Items */}
             {works.slice(1).map((work, index) => (
               <div
                 key={work.id}
                 className={`${styles.workItem} ${index % 2 === 0 ? styles.reverse : ""}`}
               >
                 <div className={styles.workImageWrapper}>
-                  {/* imgSrc ของ work จะใช้ Path แบบตรงๆ */}
                   <img src={work.imgSrc} alt={work.title} className={styles.workImage} />
                 </div>
                 <div className={styles.workText}>
@@ -120,7 +183,6 @@ export default function Home() {
             ))}
           </section>
 
-          {/* Products Section */}
           <section className={styles.productsSection}>
             <h2>Products</h2>
             <div className={styles.productsGrid}>
@@ -132,7 +194,6 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className={styles.productCard}
                 >
-                  {/* imgSrc ของ product จะใช้ Path แบบตรงๆ */}
                   <img src={product.imgSrc} alt={product.name} className={styles.productImage} />
                   <p>{product.name}</p>
                 </a>
@@ -157,11 +218,8 @@ export default function Home() {
         {/* Floating Contact Panel */}
         <div className={`${styles.floatingContactPanel} ${showContact ? styles.show : ""}`}>
           <h2>Contact Us</h2>
-          <form
-            action="https://formspree.io/f/mjkrazly"
-            method="POST"
-            className={styles.contactForm}
-          >
+          {/* เพิ่ม onSubmit handler และผูก input/textarea กับ state */}
+          <form onSubmit={handleSubmit} action="https://formspree.io/f/mjkrazly" method="POST" className={styles.contactForm}>
             <label>
               Name:<br />
               <input type="text" name="name" required />
@@ -170,15 +228,23 @@ export default function Home() {
               Email:<br />
               <input type="email" name="_replyto" required />
             </label>
-            <label className={styles.messageLabel}> {/* Added class for positioning context */}
+            <label className={styles.messageLabel}>
               Message:<br />
-              <textarea name="message" rows={4} required></textarea>
-              {/* Added the persistent note inside the message box */}
-              <div className={styles.phoneNumberReminder}>
-                โปรดระบุเบอร์โทรแนบตลอด
-              </div>
+              {/* ผูก textarea กับ state และ handler */}
+              <textarea
+                name="message"
+                rows={4}
+                required
+                value={message} // ควบคุมค่า input ด้วย state
+                onChange={handleMessageChange} // เมื่อค่าเปลี่ยนให้เรียก handler
+              ></textarea>
+              {/* แสดงข้อความ error ถ้ามี */}
+              {messageError && <p style={{ color: 'red', fontSize: '0.9rem', marginTop: '-10px', marginBottom: '10px' }}>{messageError}</p>}
+              
             </label>
-            <button type="submit">Send Message</button>
+            <button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? 'กำลังส่ง...' : 'Send Message'}
+            </button>
           </form>
         </div>
       </div>
