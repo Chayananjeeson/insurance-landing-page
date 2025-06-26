@@ -1,0 +1,39 @@
+/* global.css */
+
+:root {
+  /* คุณยังสามารถเก็บตัวแปรสีเหล่านี้ไว้ได้ หากต้องการใช้ในส่วนอื่น */
+  --background-solid: #f8fbff;  /* สีขาวฟ้าอ่อนๆ (แบบ solid) */
+  --foreground: #002c54;    /* สีน้ำเงินเข้ม */
+  --gradient-start: #ffffff; /* สีเริ่มต้นของ gradient */
+  --gradient-end: #e0f4ff;   /* สีสิ้นสุดของ gradient */
+}
+
+html,
+body {
+  height: 100%; /* เพิ่ม height: 100%; เพื่อให้ gradient ครอบคลุมเต็มความสูง */
+  max-width: 100vw;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* สำคัญเพื่อให้ padding/border ไม่เกิน max-width */
+}
+
+body {
+  color: var(--foreground);
+  /* เปลี่ยนมาใช้ linear-gradient ที่นี่ เพื่อให้เป็นพื้นหลังหลักของทั้งหน้า */
+  background: linear-gradient(to bottom right, var(--gradient-start), var(--gradient-end));
+  font-family: Arial, Helvetica, sans-serif; /* คุณสามารถเปลี่ยนเป็น 'Montserrat' ได้ ถ้า import มาแล้ว */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

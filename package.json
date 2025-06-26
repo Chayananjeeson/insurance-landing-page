@@ -1,0 +1,33 @@
+
+
+{
+  "name": "myweb",
+  "version": "0.1.0",
+  "private": true,
+
+  "homepage": "https://Chayananjeeson.github.io/insurance-landing-page/",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+
+    "predeploy": "npm run build",
+
+    "deploy": "gh-pages -d out"
+  },
+  "dependencies": {
+    "next": "15.3.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
+    "react-slick": "^0.30.3",
+    "slick-carousel": "^1.8.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.4",
+    "gh-pages": "^6.3.0"
+  }
+}

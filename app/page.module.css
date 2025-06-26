@@ -1,0 +1,462 @@
+/*
+  app/page.module.css
+  Full code (adjusted for product image display and responsiveness)
+*/
+
+.page {
+  color: #000000;
+  font-family: 'Montserrat', sans-serif;
+  padding: 0;
+  scroll-behavior: smooth;
+  /* Ensure page content starts below the sticky header */
+  padding-top: 60px; /* Height of sticky header */
+}
+
+.stickyHeader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px; /* Increased height to accommodate icons and text better */
+  background-color: #1231b2; /* Darker blue as per the provided image */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the headerNav itself */
+  padding: 0 24px;
+  z-index: 9999;
+  /* Add a subtle shadow at the bottom of the header */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Horizontal offset, Vertical offset, Blur radius, Spread radius, Color */
+}
+
+/* Styling for the new header navigation */
+.headerNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Distribute elements to opposite ends */
+  width: 100%; /* Ensure navigation takes full width of header */
+}
+
+/* Style for the Home text */
+.homeText {
+  color: #f0f7ff;
+  font-weight: 700;
+  font-size: 1.4rem;
+  flex-shrink: 0; /* Prevent it from shrinking */
+  padding: 0 20px; /* Add some padding around "Home" to ensure it's not too close to other elements */
+}
+
+/* Wrapper for social icons and phone number to keep them grouped and push to right on desktop */
+.socialAndPhoneWrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Spacing between icons/phone number */
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+  margin-left: auto; /* This crucial line pushes this entire group to the right on desktop */
+}
+
+.socialIcon {
+  color: #f0f7ff; /* Icon color */
+  font-size: 1.6rem; /* Icon size */
+  text-decoration: none; /* Remove underline from links */
+  transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.socialIcon:hover {
+  color: #a0c4ff; /* Lighter blue on hover */
+}
+
+.phoneNumber {
+  color: #f0f7ff; /* Text color for phone number */
+  font-size: 1.1rem; /* Font size for phone number */
+  font-weight: 600; /* Font weight for phone number */
+  display: flex; /* Use flex to align icon and text */
+  align-items: center; /* Vertically center icon and text */
+}
+
+/* Back button for product pages */
+.backButton {
+  background-color: #004080; /* Blue background */
+  color: white; /* White text */
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.backButton:hover {
+  background-color: #003366;
+}
+
+/* Main Banner Section (was once slider) */
+.mainBannerSection {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom right, #ffffff, #e0f4ff);
+}
+
+.mainBannerImage {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Main Content Area - for home page poster grid and sub-page product listings */
+.mainContentArea {
+  width: 100%; /* Full width */
+  margin: 40px auto;
+  padding-left: 20px;
+  padding-right: 20px;
+  box-sizing: border-box;
+}
+
+/* Styles for the main page poster grid (4 large cards) */
+.posterSection {
+  padding: 20px 0;
+}
+
+.posterGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Force 4 columns on desktop */
+  gap: 30px; /* Spacing between cards */
+  justify-content: center;
+  align-items: stretch;
+  max-width: 1200px; /* Max width for the grid */
+  margin: 0 auto;
+}
+
+.posterCard {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 44, 84, 0.12);
+  text-align: center;
+  color: #000000;
+  text-decoration: none;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.posterCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 26px rgba(0, 44, 84, 0.25);
+}
+
+.posterImage {
+  width: 100%;
+  height: 350px; /* Adjusted image height in card */
+  object-fit: cover;
+  border-radius: 8px;
+  margin-top: 15px; /* Spacing from title */
+  user-select: none;
+  pointer-events: none;
+}
+
+.posterName {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #003366;
+  text-decoration: none;
+  margin-top: 0;
+  margin-bottom: 0px;
+}
+
+/* --- Styles for Product Listing Section on Sub-pages (e.g., Whole Life Products) --- */
+.productListingSection {
+  padding: 20px 0;
+}
+
+.productListingSection h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #004080;
+  border-bottom: 3px solid #65a9ff;
+  display: inline-block;
+  padding-bottom: 6px;
+  text-align: center;
+  width: 100%; /* Center the heading */
+}
+
+/* Grid for product listings on sub-pages (3 columns) */
+.productDetailGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Adjusted minmax for better card sizing */
+  gap: 28px; /* Spacing between product cards */
+  justify-content: center; /* Center the grid */
+  max-width: 960px; /* Max width */
+  margin: 0 auto;
+}
+
+/* Styles for individual product cards on sub-pages */
+.productCard {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0, 44, 84, 0.12);
+  text-align: center;
+  color: #000000;
+  text-decoration: none;
+  padding: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex; /* Use flexbox to stack image and name */
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Align content to the top */
+}
+
+.productCard:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 26px rgba(0, 44, 84, 0.25);
+}
+
+.productImage {
+  width: 100%;
+  height: 250px; /* Adjusted: Increased height for more vertical space for the image */
+  object-fit: contain; /* Adjusted: Use 'contain' to show the full image without cropping */
+  background-color: #e0f4ff; /* Added: Light background to fill empty space (letterboxing) */
+  border-radius: 10px;
+  margin-bottom: 12px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.productName {
+  font-size: 1.1rem; /* Font size for product name */
+  font-weight: 600;
+  color: #003366;
+  margin-bottom: 0; /* No margin below product name in this layout */
+}
+
+
+/* --- Floating Contact Button + Panel --- */
+.contactWrapper {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 10000;
+  text-align: right;
+  padding: 0;
+  margin: 0;
+}
+
+.contactToggleButton {
+  background-color: #004080;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 12px 0 0 0;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.3s ease, width 0.3s ease, padding 0.3s ease;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contactToggleButton.minimized {
+  width: 48px;
+  padding: 14px 0;
+  font-size: 1.6rem;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.contactToggleButton:hover {
+  background-color: #003366;
+}
+
+.floatingContactPanel {
+  margin-top: 12px;
+  background: linear-gradient(to bottom right, #ffffff, #e0f4ff);
+  color: #000000;
+  padding: 24px;
+  border-radius: 16px;
+  width: 320px;
+  max-width: 90vw;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transform: translateY(20px);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  text-align: left;
+  z-index: 10001;
+}
+
+.floatingContactPanel.show {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Form in the panel */
+.contactForm label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.contactForm input,
+.contactForm textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 2px solid #65a9ff;
+  font-size: 1rem;
+  background: #ffffff;
+  resize: vertical;
+  color: #000000;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+
+.contactForm input:focus,
+.contactForm textarea:focus {
+  border-color: #004080;
+  outline: none;
+}
+
+.contactForm button {
+  background-color: #004080;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.contactForm button:hover {
+  background-color: #002c54;
+}
+
+/* Styling for the message label container to make it a positioning context */
+.messageLabel {
+  position: relative;
+  display: block;
+  margin-bottom: 16px;
+}
+
+/* Styling for the phone number reminder text inside the message box */
+.phoneNumberReminder {
+  position: absolute;
+  bottom: 15px;
+  right: 22px;
+  color: #a0a0a0;
+  font-size: 0.85rem;
+  pointer-events: none;
+  z-index: 1;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .page {
+    padding-top: 60px;
+  }
+
+  .mainBannerImage {
+    height: 250px;
+  }
+
+  .mainContentArea {
+    margin: 20px auto;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .posterGrid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+  }
+
+  .posterCard {
+    padding: 15px;
+  }
+  
+  .posterImage {
+    height: 150px;
+  }
+
+  .posterName {
+    font-size: 1.1rem;
+  }
+
+  /* Responsive for productDetailGrid on sub-pages */
+  .productDetailGrid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Adjust for 2 columns on mobile */
+    gap: 15px;
+  }
+
+  .contactToggleButton {
+    padding: 14px 20px;
+    border-radius: 12px 0 0 0;
+  }
+
+  .contactToggleButton.minimized {
+    width: 48px;
+    padding: 14px 0;
+    font-size: 1.6rem;
+    border-radius: 12px;
+  }
+
+  .floatingContactPanel {
+    width: calc(100vw - 32px);
+    bottom: 60px;
+    right: 16px;
+    padding: 16px;
+  }
+
+  .stickyHeader {
+    height: auto;
+    padding: 10px 15px;
+    flex-direction: column;
+  }
+
+  .headerNav {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+  }
+
+  .homeText {
+    order: 1;
+    margin: 0;
+  }
+
+  .socialAndPhoneWrapper {
+    order: 2;
+    margin-left: 0;
+    width: 100%;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .socialIcon {
+    font-size: 1.4rem;
+  }
+
+  .phoneNumber {
+    font-size: 1rem;
+  }
+}
